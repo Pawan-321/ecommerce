@@ -1,0 +1,46 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Profile{% endblock title %}
+{% block main-content %}
+
+<style>
+  .thumbnail {
+    border-radius: 1rem;
+  }
+  .card {
+    border-radius: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.2);
+  }
+</style>
+
+{% for customer in customer%}
+<div class="card container my-5">
+ <div class="thumbnail row">
+  <h3 class="thumbnail text-white text-center" style="background-color: #343a40;">Welcome <span class="text-capitalize">{{ request.user.username }}</span></h3>
+  <div class="col-sm-2 border-end">
+   <ul class="list-unstyled">
+    <li class="d-grid thumbnail"><a href="{% url 'profile' %}" class="card thumbnail btn" style="background-color: rgb(181, 76, 76);">Profile</a></li>
+      {% if customer.image %}
+        <img class="card thumbnail img-fluid" src="{{ customer.image.url }}" alt="Profile Image" style="height: 150px; width: 150px;">
+      {% endif %}
+  </ul>
+  </div>
+  <div class="col-sm-9 offset-sm-1">
+    <div class="row">
+      <div class="thumbnail col-sm-6">
+         <div class="card thumbnail">
+             <div class="card-body">
+                 <h3 class="text-center">Profile Information</h3>
+                   <p>Name: {{ customer.user.username }}</p>
+                   <p>Address: {{ customer.locality }}, {{ customer.city }}, {{ customer.state }}</p>
+                   <p>Phone Number: {{ customer.phone }}</p>
+                 
+             </div>
+         </div>
+      </div>
+    </div>
+   </div>
+ </div>
+</div>
+{% endfor %}
+{% endblock main-content %}

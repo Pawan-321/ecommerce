@@ -1,0 +1,198 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Home{% endblock title %}
+
+{% block main-content %}
+<!-- 1st Product Slider -->
+<style>
+
+  .thumbnail{
+    border-radius: 1rem;
+  }
+  .card {
+    border-radius: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.2);
+  }
+</style>
+
+<hr>
+<h2  style="color: white; text-align: center; background-color: #343a40; margin-top: 2rem; margin-bottom: 2rem; font-size: 1.25rem; font-weight: 350px; padding-block: 0.5rem;">Man's clothes</h2> 
+<hr>
+<div class="owl-carousel" id="slider4">
+  {% for b in mansclothes %}
+  <div class="card item text-center" style="padding: 15px; background-color: #ffffff;">
+    <a href="{% url 'product-detail' b.id %}" class="btn btn-link text-decoration-none">
+      <img src="{{ b.product_image.url }}" alt="{{ b.title }}" class="thumbnail img-fluid" style="height: 200px; width: auto; margin-bottom: 10px;">
+      <div class="mt-2">
+        <span class="fw-bold d-block">{{ b.title }}</span>
+        <span class="fs-5 d-block">Rs. {{ b.discounted_price }}</span>
+      </div>
+    </a>
+    <span> <p class="star-rating mb-0 me-3" style="font-size: 18px;"> <!-- Adjust font-size as needed -->
+      <div class="rating-stars">
+        {% for i in "12345" %}
+          {%  if b.average_rating >= i|add:"0" %}
+            <span class="star-icon" style="font-size: 18px; color: #f5b301;">&#9733;</span> <!-- Filled star -->
+          {% else %}
+            <span class="star-icon" style="font-size: 18px; color: #ddd;">&#9734;</span> <!-- Empty star -->
+          {% endif %}
+        {% endfor %}
+      </div>
+     </p>
+    </span >
+    <p class="card-text">
+      {% if b.stock_status == 'In Stock' %}
+        <span class="text-success" style="font-size: smaller;">{{ b.stock_status }}</span>
+      {% elif b.stock_status == 'Limited Stock' %}
+        <span class="text-warning" style="font-size: smaller;">{{ b.stock_status }}</span>
+      {% else %}
+        <span class="text-danger" style="font-size: smaller;">{{ b.stock_status }}</span>
+      {% endif %}
+    </p>
+    
+    <div class="d-flex justify-content-between align-items-center mt-3">
+      <i class="fa fa-shopping-cart" style="color: gray; cursor: pointer;"></i>
+      <a href="{% url 'product-detail' b.id %}" class="btn btn-primary" style="background-color:rgb(181, 76, 76);">More Details</a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+<hr>
+
+
+<br>
+<h2 style="color: white; text-align: center; background-color: #343a40; margin-top: 2rem; margin-bottom: 2rem; font-size: 1.25rem; font-weight: 350px; padding-block: 0.5rem;"> Woman's clothes</h2> 
+<hr>
+<div class="owl-carousel" id="slider4">
+  {% for b in womansclothes %}
+  <div class=" card item text-center" style="padding: 15px; background-color: #ffffff;">
+    <a href="{% url 'product-detail' b.id %}" class="btn btn-link text-decoration-none">
+      <img src="{{ b.product_image.url }}" alt="{{ b.title }}" class="thumbnail img-fluid" style="height: 200px; width: auto; margin-bottom: 10px;">
+      <div class="mt-2">
+        <span class="fw-bold d-block">{{ b.title }}</span>
+        <span class="fs-5 d-block">Rs. {{ b.discounted_price }}</span>
+      </div>
+    </a>
+    <span> <p class="star-rating mb-0 me-3" style="font-size: 18px;"> <!-- Adjust font-size as needed -->
+      <div class="rating-stars">
+        {% for i in "12345" %}
+          {%  if b.average_rating >= i|add:"0" %}
+            <span class="star-icon" style="font-size: 18px; color: #f5b301;">&#9733;</span> <!-- Filled star -->
+          {% else %}
+            <span class="star-icon" style="font-size: 18px; color: #ddd;">&#9734;</span> <!-- Empty star -->
+          {% endif %}
+        {% endfor %}
+      </div>
+     </p>
+    </span >
+    <p class="card-text">
+      {% if b.stock_status == 'In Stock' %}
+        <span class="text-success" style="font-size: smaller;">{{ b.stock_status }}</span>
+      {% elif b.stock_status == 'Limited Stock' %}
+        <span class="text-warning" style="font-size: smaller;">{{ b.stock_status }}</span>
+      {% else %}
+        <span class="text-danger" style="font-size: smaller;">{{ b.stock_status }}</span>
+      {% endif %}
+    </p>
+    
+    <div class="d-flex justify-content-between align-items-center mt-3">
+      <i class="fa fa-shopping-cart" style="color: gray; cursor: pointer;"></i>
+      <a href="{% url 'product-detail' b.id %}" class="btn btn-primary" style="background-color:rgb(181, 76, 76);">More Details</a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+<hr>
+<br>
+<h2 style="color: white; text-align: center; background-color: #343a40; margin-top: 2rem; margin-bottom: 2rem; font-size: 1.25rem; font-weight: 350px; padding-block: 0.5rem;">Shoes</h2> 
+
+<hr>
+
+<div class="owl-carousel" id="slider4">
+  {% for b in  shoes %}
+  <div class="card item text-center" style="padding: 15px; background-color: #ffffff; border-radius: 8px;">
+    <a href="{% url 'product-detail' b.id %}" class="btn btn-link text-decoration-none">
+      <img src="{{ b.product_image.url }}" alt="{{ b.title }}" class="thumbnail img-fluid" style="height: 200px; width: auto; margin-bottom: 10px;">
+      <div class="mt-2">es
+        <span class="fw-bold d-block">{{ b.title }}</span>
+        <span class="fs-5 d-block">Rs. {{ b.discounted_price }}</span>
+      </div>
+    </a>
+    <span> <p class="star-rating mb-0 me-3" style="font-size: 18px;"> <!-- Adjust font-size as needed -->
+      <div class="rating-stars">
+        {% for i in "12345" %}
+          {%  if b.average_rating >= i|add:"0" %}
+            <span class="star-icon" style="font-size: 18px; color: #f5b301;">&#9733;</span> <!-- Filled star -->
+          {% else %}
+            <span class="star-icon" style="font-size: 18px; color: #ddd;">&#9734;</span> <!-- Empty star -->
+          {% endif %}
+        {% endfor %}
+      </div>
+     </p>
+    </span >
+    <p class="card-text">
+      {% if b.stock_status == 'In Stock' %}
+        <span class="text-success" style="font-size: smaller;">{{ b.stock_status }}</span>
+      {% elif b.stock_status == 'Limited Stock' %}
+        <span class="text-warning" style="font-size: smaller;">{{ b.stock_status }}</span>
+      {% else %}
+        <span class="text-danger" style="font-size: smaller;">{{ b.stock_status }}</span>
+      {% endif %}
+    </p>
+    
+    <div class="d-flex justify-content-between align-items-center mt-3">
+      <i class="fa fa-shopping-cart" style="color: gray; cursor: pointer;"></i>
+      <a href="{% url 'product-detail' b.id %}" class="btn btn-primary" style="background-color:rgb(181, 76, 76);">More Details</a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+<hr>
+<br>
+<h2 style="color: white; text-align: center; background-color: #343a40; margin-top: 2rem; margin-bottom: 2rem; font-size: 1.25rem; font-weight: 350px; padding-block: 0.5rem;"> Cosmetic Product</h2> 
+
+<hr>
+  <div class="owl-carousel" id="slider4">
+    {% for b in cosmeticproduct %}
+    <div class="card item text-center" style="padding: 15px; background-color: #ffffff;">
+      <a href="{% url 'product-detail' b.id %}" class="btn btn-link text-decoration-none">
+        <img src="{{ b.product_image.url }}" alt="{{ b.title }}" class="thumbnail img-fluid" style="height: 200px; width: auto; margin-bottom: 10px;">
+        <div class="mt-2">
+          <span class="fw-bold d-block">{{ b.title }}</span>
+          <span class="fs-5 d-block">Rs. {{ b.discounted_price }}</span>
+        </div>
+      </a>
+      <span> <p class="star-rating mb-0 me-3" style="font-size: 18px;"> <!-- Adjust font-size as needed -->
+        <div class="rating-stars">
+          {% for i in "12345" %}
+            {%  if b.average_rating >= i|add:"0" %}
+              <span class="star-icon" style="font-size: 18px; color: #f5b301;">&#9733;</span> <!-- Filled star -->
+            {% else %}
+              <span class="star-icon" style="font-size: 18px; color: #ddd;">&#9734;</span> <!-- Empty star -->
+            {% endif %}
+          {% endfor %}
+        </div>
+       </p>
+      </span >
+      <p class="card-text">
+        {% if b.stock_status == 'In Stock' %}
+          <span class="text-success" style="font-size: smaller;">{{ b.stock_status }}</span>
+        {% elif b.stock_status == 'Limited Stock' %}
+          <span class="text-warning" style="font-size: smaller;">{{ b.stock_status }}</span>
+        {% else %}
+          <span class="text-danger" style="font-size: smaller;">{{ b.stock_status }}</span>
+        {% endif %}
+      </p>
+      
+      <div class="d-flex justify-content-between align-items-center mt-3">
+        <i class="fa fa-shopping-cart" style="color: gray; cursor: pointer;"></i>
+        <a href="{% url 'product-detail' b.id %}" class="btn btn-primary" style="background-color:rgb(181, 76, 76);">More Details</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+<hr>
+<br>
+<!-- End 4th Product Slider -->
+<!-- End Payment Info Section -->
+{% endblock main-content %}

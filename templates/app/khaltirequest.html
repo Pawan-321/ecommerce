@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://khalti.s3.ap-south-1.amazonaws.com/KPG/dist/2020.12.17.0.0.0/khalti-checkout.iffe.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <h3>Your order amount is Rs. {{ order.total }}</h3>
+    <button id="payment-button">Pay with Khalti</button>
+    <a href="/">Go to Home page</a>
+
+    <script>
+        var config = {
+            publicKey: "test_public_key_5bc2f6c7e3db4b97a25db84706c66ca8",
+            productIdentity: "order_{{ order.id }}",
+            productName: "order_{{ order.id }}",
+            productUrl: "http://localhost:8000",
+            paymentPreference: [
+                "MOBILE_BANKING",
+                "KHALTI",
+                "EBANKING",
+                "CONNECT_IPS",
+                "SCT",
+            ],
+            eventHandler: {
+                onSuccess(payload) {
+                    axios.get("/khalti-verify/", {
+                        params: {
+                            token: payload.token,
+                            amount: payload.amount,
+                            order_id: "{{ order.id }}"
+                        }
+                    }).then(function(resp) {
+                        if (resp.data.success == true) {
+                            alert("Thanks. Payment Completed Successfully");
+                            location.href = "/";
+                        } else {
+                            alert("Sorry. Error occurred");
+                            location.href = "{{ request.build_absolute_uri }}";
+                        }
+                    }).catch(function(error) {
+                        console.error("There was an error!", error);
+                    });
+                },
+                onError(error) {
+                    console.log(error);
+                },
+                onClose() {
+                    console.log('widget is closing');
+                }
+            }
+        };
+
+        var checkout = new KhaltiCheckout(config);
+        var btn = document.getElementById("payment-button");
+        btn.onclick = function () {
+            checkout.show({ amount: {{ order.total }} * 100 });
+        }
+    </script>
+</body>
+</html>
